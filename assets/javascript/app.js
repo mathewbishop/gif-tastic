@@ -1,8 +1,8 @@
 
 
-
+// array of dog breeds/types
 var dogArry = ["corgi", "mastiff", "terrier", "beagle"];
-
+// for each item in the dogArry, creates a button with attr data-dog setting its value to the respective index
 for (var i = 0; i < dogArry.length; i++) {
     var dogButton = $("<button>");
         dogButton.attr("data-dog", dogArry[i]);
@@ -10,7 +10,7 @@ for (var i = 0; i < dogArry.length; i++) {
         $('body').prepend(dogButton);        
 }
 
-
+// on click of dog button... 
 $('button').click(function() {
     var dog = $(this).attr("data-dog");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + dog + "&api_key=0Q6mzyUdggwOoNd7SEBsuy19WrVSW06y&limit=10";
@@ -34,12 +34,39 @@ $('button').click(function() {
             var dogGif = $('<img>');
 
             dogGif.attr("src", results[i].images.fixed_height_still.url);
+            dogGif.attr("data-state", "still");
+            dogGif.attr("data-still", results[i].images.fixed_height_still.url);
+            dogGif.attr("data-animate", results[i].images.fixed_height.url);
+            dogGif.addClass("dog-gif");
 
             dogContainer.append(rating);
             dogContainer.append(dogGif);
 
             $('#gif-container').prepend(dogContainer);
-        }  
+
+            $('.dog-gif').click(function() {
+                var state = $(this).attr("data-state");
+            
+                    if (state === "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                    } else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                    }
+                })
+            
+        }
+
+
+        
+
     });
 });
 
+
+
+
+
+    
+    
