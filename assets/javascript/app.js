@@ -2,13 +2,32 @@
 
 // array of dog breeds/types
 var dogArry = ["corgi", "mastiff", "terrier", "beagle"];
+
+
+
+function renderButtons() {
+
+$('#button-container').empty();
 // for each item in the dogArry, creates a button with attr data-dog setting its value to the respective index
 for (var i = 0; i < dogArry.length; i++) {
+    
     var dogButton = $("<button>");
         dogButton.attr("data-dog", dogArry[i]);
-        dogButton.text(dogArry[i]);
-        $('body').prepend(dogButton);        
+        dogButton.text(dogArry[i].toUpperCase());
+        $('#button-container').prepend(dogButton);        
+    }
+
 }
+
+
+$('#add-dog').click(function(event) {
+    event.preventDefault();
+    var newDog = $('#dog-input').val().trim();
+    dogArry.push(newDog);
+    renderButtons();
+})
+
+
 
 // on click of dog button... 
 $('button').click(function() {
@@ -55,13 +74,11 @@ $('button').click(function() {
                     $(this).attr("data-state", "still");
                     }
                 })
-            
+
         }
 
-
-        
-
     });
+
 });
 
 

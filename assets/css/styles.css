@@ -1,0 +1,12 @@
+button {
+    font-size: 2.5rem;
+    margin: .5rem;
+    border-radius: 8px;
+    border: 2px dotted black;
+    padding: 10px;
+}
+
+#choose-dog {
+    font-size: 2rem;
+    margin-left: 20px;
+}
