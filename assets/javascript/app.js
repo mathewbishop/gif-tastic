@@ -5,32 +5,9 @@ var dogArry = ["corgi", "mastiff", "terrier", "beagle"];
 
 
 
-function renderButtons() {
-
-$('#button-container').empty();
-// for each item in the dogArry, creates a button with attr data-dog setting its value to the respective index
-for (var i = 0; i < dogArry.length; i++) {
-    
-    var dogButton = $("<button>");
-        dogButton.attr("data-dog", dogArry[i]);
-        dogButton.text(dogArry[i].toUpperCase());
-        $('#button-container').prepend(dogButton);        
-    }
-
-}
-
-
-$('#add-dog').click(function(event) {
-    event.preventDefault();
-    var newDog = $('#dog-input').val().trim();
-    dogArry.push(newDog);
-    renderButtons();
-})
-
-
-
+function displayDog() {
 // on click of dog button... 
-$('button').click(function() {
+$('.dog-btn').click(function() {
     var dog = $(this).attr("data-dog");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + dog + "&api_key=0Q6mzyUdggwOoNd7SEBsuy19WrVSW06y&limit=10";
 
@@ -58,8 +35,8 @@ $('button').click(function() {
             dogGif.attr("data-animate", results[i].images.fixed_height.url);
             dogGif.addClass("dog-gif");
 
-            dogContainer.append(rating);
             dogContainer.append(dogGif);
+            dogContainer.append(rating);
 
             $('#gif-container').prepend(dogContainer);
 
@@ -80,10 +57,32 @@ $('button').click(function() {
     });
 
 });
+}
 
 
+function renderButtons() {
 
+$('#button-container').empty();
+// for each item in the dogArry, creates a button with attr data-dog setting its value to the respective index
+for (var i = 0; i < dogArry.length; i++) {
+    
+    var dogButton = $("<button>");
+        dogButton.addClass("dog-btn")
+        dogButton.attr("data-dog", dogArry[i]);
+        dogButton.text(dogArry[i]);
+        $('#button-container').append(dogButton);        
+    }
+}
 
 
     
-    
+$('#add-dog').on("click", function(event) {
+    event.preventDefault();
+    var newDog = $('#dog-input').val().trim();
+    dogArry.push(newDog);
+    renderButtons();
+})
+
+
+$(document).click(".dog-btn", displayDog);
+renderButtons();
